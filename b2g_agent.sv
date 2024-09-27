@@ -22,4 +22,11 @@ class b2g_agent extends uvm_agent;
 	endfunction
 
 	// connect_phase
+	function void connect_phase(uvm_phase phase);
+	// Connecting sequencer and driver
+		drv.seq_item_port.connect(sqr.seq_item_export);
+	// Connecting monitor and subscriber
+		mon.a_port.connect(sub.analysis_export);
+		`uvm_info("B2G_AGENT","Inside connect_phase of b2g_agent",UVM_HIGH)
+	endfunction
 endclass

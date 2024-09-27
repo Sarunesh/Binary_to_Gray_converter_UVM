@@ -18,5 +18,9 @@ class b2g_env extends uvm_env;
 	endfunction
 
 	// connect_phase
-
+	function void connect_phase(uvm_phase phase);
+	// Connecting monitor and sbd
+		agent.mon.a_port.connect(sbd.a_imp);
+		`uvm_info("B2G_ENV","Inside connect_phase of b2g_env",UVM_HIGH)
+	endfunction
 endclass
