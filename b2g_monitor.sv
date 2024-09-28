@@ -11,6 +11,10 @@ class b2g_monitor extends uvm_monitor;
 	// Virtual interface
 	virtual b2g_intf vif;
 
+	// Properties
+	int count;
+	b2g_tx tx;
+
 	// build_phase
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
@@ -23,6 +27,17 @@ class b2g_monitor extends uvm_monitor;
 
 	//run_phase
 	task run_phase(uvm_phase phase);
+		@(negedge vif.rst);
 		`uvm_info("B2G_DRIVER","Inside the run_phase of b2g_monitor",UVM_HIGH)
+		if(!uvm_config_db#(int)::get(null,get_full_name(),"COUNT",count))
+			`uvm_fatal("B2G_MONITOR","Failed to read the COUNT value in monitor")
+		repeat(count)begin
+			#1;
+			tx			= new();
+			tx.binary	= vif.binary;
+			tx.gray		= vif.gray;
+			a_port.write(tx);
+			tx.print();
+		end
 	endtask
 endclass
