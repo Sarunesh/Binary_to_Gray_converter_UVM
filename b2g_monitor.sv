@@ -37,7 +37,7 @@ class b2g_monitor extends uvm_monitor;
 			tx.binary	= vif.binary;
 			tx.gray		= vif.gray;
 			a_port.write(tx);
-			tx.print();
+			//tx.print();
 		end
 	endtask
 endclass

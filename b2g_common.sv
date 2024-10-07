@@ -9,3 +9,8 @@
 	endfunction
 
 parameter CODE_LENGTH=3;
+
+class b2g_common;
+	static int gray_match;
+	static int gray_mismatch;
+endclass

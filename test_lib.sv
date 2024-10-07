@@ -21,6 +21,16 @@ class base_test extends uvm_test;
 	endfunction
 
 	// report_phase
+	function void report_phase(uvm_phase phase);
+		int test_count;
+		`uvm_info("BASE_TEST","Inside report_phase of base_test",UVM_HIGH)
+		if(!uvm_config_db#(int)::get(this,get_full_name(),"COUNT",test_count))
+			`uvm_fatal("BASE_TEST","Failed to read the count value in base_test")
+		if(b2g_common::gray_match==test_count && !b2g_common::gray_mismatch)
+			`uvm_info("TEST_PASSED",$sformatf("##### Test passed:\tGray_match=%0d\tGray_mismatch=%0d", b2g_common::gray_match, b2g_common::gray_mismatch),UVM_NONE)
+		else
+			`uvm_info("TEST_FAILED",$sformatf("##### Test failed:\tGray_match=%0d\tGray_mismatch=%0d", b2g_common::gray_match, b2g_common::gray_mismatch),UVM_NONE)
+	endfunction
 endclass
 
 class test_10 extends base_test;

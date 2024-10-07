@@ -9,7 +9,7 @@ module bin_2_gray(rst,binary,gray);
 	endfunction
 
 	always@* begin
-		if(!rst) gray = 0;				// Negative reset
+		if(rst) gray = 0;				// Negative reset
 		else gray = gray_conv(binary);
 	end
 endmodule
